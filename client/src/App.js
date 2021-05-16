@@ -1,25 +1,34 @@
 import React, { Component } from 'react';
 import './App.css';
-import axios from 'axios'
+import axios from 'axios';
+import Card from "./templates/card"
 
 class App extends Component {
+  /*constructor (props) {
+    super(props);
+    this.state = {
+      response: {}
+    };
+  }*/
   state = {
     response: {}
-  };
-  
+  }
   componentDidMount() {
-    axios.get('/api/v1/say-something').then((res) => {
+    axios.get("/api/v1/dashboard", { responseType: "json"}).then((res) => {
       const response = res.data;
       this.setState({response});
     });
   }
 
   render() {
+    console.log(JSON.stringify(this.state.response.card));
     return (
+     
       <div className="App">
-        <h1>Hello from the frontend!</h1>
-        <h1>{this.state.response.body}</h1>
+        <Card dataObject={this.state.response} />
       </div>
+
+      
     );
   }
 }
